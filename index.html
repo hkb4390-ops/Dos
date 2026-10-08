@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta name="theme-color" content="#08080d">
+
+  <title>Study Mode — Course</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg: #07070b;
+      --card: rgba(255,255,255,.055);
+      --border: rgba(255,255,255,.09);
+      --text: #fff;
+      --muted: #a6a6b2;
+      --accent: #7c5cff;
+      --accent2: #b45cff;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(124,92,255,.20), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(180,92,255,.12), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      overflow-x: hidden;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1180px;
+      margin: auto;
+      padding-bottom: 60px;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 16px;
+      background: rgba(7,7,11,.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 43px;
+      height: 43px;
+      border-radius: 13px;
+      object-fit: cover;
+      background: #15151c;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-sub {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 11px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.045);
+      border-radius: 999px;
+      font-size: 11px;
+      color: #cfcfd8;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #46e28a;
+      box-shadow: 0 0 12px #46e28a;
+    }
+
+    /* HERO */
+
+    .hero {
+      margin: 20px 16px 0;
+      min-height: 230px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg,
+          rgba(124,92,255,.23),
+          rgba(255,255,255,.045) 50%,
+          rgba(180,92,255,.14));
+      box-shadow: 0 25px 80px rgba(0,0,0,.30);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -120px;
+      top: -140px;
+      border-radius: 50%;
+      background: rgba(124,92,255,.30);
+      filter: blur(50px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 28px 23px;
+    }
+
+    .course-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+      font-size: 11px;
+      color: #ddd;
+    }
+
+    .hero h1 {
+      margin-top: 16px;
+      font-size: clamp(28px, 6vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -1.4px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin-top: 12px;
+      color: #b7b7c3;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      padding: 9px 12px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.20);
+      border: 1px solid rgba(255,255,255,.08);
+      color: #ddd;
+      font-size: 12px;
+    }
+
+    .stat b {
+      color: #fff;
+    }
+
+    /* CONTENT */
+
+    .content {
+      padding: 25px 16px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2 {
+      font-size: 19px;
+      letter-spacing: -.3px;
+    }
+
+    .section-head span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* SEARCH */
+
+    .search {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .search input {
+      width: 100%;
+      height: 49px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      outline: none;
+      color: white;
+      background: rgba(255,255,255,.055);
+      padding: 0 16px 0 43px;
+      font-size: 14px;
+      backdrop-filter: blur(15px);
+    }
+
+    .search input::placeholder {
+      color: #777783;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888895;
+      font-size: 17px;
+    }
+
+    /* CARDS */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      overflow: hidden;
+      border-radius: 21px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      transition: .25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(124,92,255,.45);
+      box-shadow: 0 15px 45px rgba(0,0,0,.25);
+    }
+
+    .thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #121219;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,.65),
+        transparent 60%
+      );
+    }
+
+    .type {
+      position: absolute;
+      left: 10px;
+      bottom: 9px;
+      padding: 5px 8px;
+      border-radius: 7px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+      font-size: 10px;
+      color: white;
+    }
+
+    .card-body {
+      padding: 14px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.35;
+      color: #f5f5f7;
+    }
+
+    .card-desc {
+      margin-top: 6px;
+      color: #92929e;
+      font-size: 11px;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .open-btn {
+      width: 100%;
+      margin-top: 12px;
+      height: 38px;
+      border: 0;
+      border-radius: 11px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(135deg, #7656ff, #a64dff);
+      box-shadow: 0 8px 25px rgba(124,92,255,.22);
+    }
+
+    /* LOADING */
+
+    .loading {
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 13px;
+      color: #aaaab5;
+      font-size: 13px;
+    }
+
+    .loader {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.1);
+      border-top-color: #8c69ff;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* EMPTY / ERROR */
+
+    .message {
+      padding: 30px 20px;
+      text-align: center;
+      color: #9999a5;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,.035);
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    .message strong {
+      display: block;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 7px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      padding: 45px 20px 10px;
+      color: #686873;
+      font-size: 11px;
+    }
+
+    footer b {
+      color: #a7a0ff;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .status {
+        display: none;
+      }
+
+      .hero {
+        min-height: 245px;
+        margin-top: 14px;
+        border-radius: 23px;
+      }
+
+      .hero-content {
+        padding: 23px 18px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .content {
+        padding: 21px 13px 0;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .card {
+        border-radius: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <div class="header-inner">
+
+      <div class="brand">
+        <img id="brandLogo"
+             src=""
+             alt="Course">
+
+        <div>
+          <div class="brand-title" id="brandTitle">
+            Study Mode
+          </div>
+          <div class="brand-sub">
+            Learning Dashboard
+          </div>
+        </div>
+      </div>
+
+      <div class="status">
+        <span class="dot"></span>
+        Connected
+      </div>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="course-label">
+          ✦ COURSE DASHBOARD
+        </div>
+
+        <h1 id="heroTitle">
+          Loading Course...
+        </h1>
+
+        <p id="heroDescription">
+          Please wait while course content is loading.
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            🎬 <b id="videoCount">0</b> Videos
+          </div>
+
+          <div class="stat">
+            📁 <b id="fileCount">0</b> Files
+          </div>
+
+          <div class="stat">
+            📝 <b id="testCount">0</b> Tests
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="content">
+
+      <div class="search">
+        <span class="search-icon">⌕</span>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search videos, files and folders..."
+          autocomplete="off">
+      </div>
+
+
+      <div class="section-head">
+        <h2>Course Content</h2>
+        <span id="resultCount">Loading...</span>
+      </div>
+
+
+      <div id="contentArea">
+
+        <div class="loading">
+          <div class="loader"></div>
+          Loading content...
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    Powered by <b>Study Mode</b>
+  </footer>
+
+</div>
+
+
+<script>
+"use strict";
+
+/*
+===========================================================
+  STUDY MODE — COURSE FRONTEND
+===========================================================
+
+  Public API endpoint supplied by the user.
+
+  IMPORTANT:
+  Do NOT put donorAuthToken / private API credentials here.
+===========================================================
+*/
+
+const API_URL =
+  "https://studyapkmod-appx-apps.vercel.app/4dd710a5-5ffb-4714-9e35-f22015c76048/65";
+
+
+const state = {
+  items: [],
+  filtered: []
+};
+
+
+const $ = id => document.getElementById(id);
+
+
+/* -------------------------------------------------------
+   SAFE TEXT
+------------------------------------------------------- */
+
+function safeText(value, fallback = "") {
+  if (
+    value === null ||
+    value === undefined
+  ) {
+    return fallback;
+  }
+
+  return String(value);
+}
+
+
+/* -------------------------------------------------------
+   ESCAPE HTML
+------------------------------------------------------- */
+
+function escapeHTML(value) {
+
+  return safeText(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+/* -------------------------------------------------------
+   LOAD API
+------------------------------------------------------- */
+
+async function loadCourse() {
+
+  try {
+
+    const response = await fetch(API_URL, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      },
+      cache: "no-store"
+    });
+
+
+    if (!response.ok) {
+      throw new Error(
+        "API returned HTTP " + response.status
+      );
+    }
+
+
+    const json = await response.json();
+
+
+    if (!json || !Array.isArray(json.data)) {
+      throw new Error("Invalid API response");
+    }
+
+
+    state.items = json.data;
+
+    state.filtered = [...state.items];
+
+
+    updateCourseHeader(json);
+
+    render();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    $("contentArea").innerHTML = `
+      <div class="message">
+        <strong>Unable to load content</strong>
+        The course server did not return usable public content.
+      </div>
+    `;
+
+    $("resultCount").textContent = "Unavailable";
+  }
+}
+
+
+/* -------------------------------------------------------
+   COURSE HEADER
+------------------------------------------------------- */
+
+function updateCourseHeader(json) {
+
+  const home =
+    json.data.find(
+      item =>
+        item.is_folder === true ||
+        item.material_type === "FOLDER"
+    ) || json.data[0];
+
+
+  if (!home) return;
+
+
+  const title =
+    home.title ||
+    home.Title ||
+    "Study Mode";
+
+
+  const description =
+    home.description ||
+    "Explore your available course content.";
+
+
+  $("heroTitle").textContent = title;
+
+  $("heroDescription").textContent = description;
+
+
+  $("brandTitle").textContent =
+    title || "Study Mode";
+
+
+  if (home.thumbnail) {
+
+    $("brandLogo").src =
+      safeText(home.thumbnail);
+  }
+
+
+  $("videoCount").textContent =
+    safeText(home.videos_count, "0");
+
+
+  $("fileCount").textContent =
+    safeText(home.files_count, "0");
+
+
+  $("testCount").textContent =
+    safeText(home.tests_count, "0");
+}
+
+
+/* -------------------------------------------------------
+   FILTER
+------------------------------------------------------- */
+
+function filterContent(value) {
+
+  const query =
+    safeText(value)
+      .trim()
+      .toLowerCase();
+
+
+  if (!query) {
+
+    state.filtered =
+      [...state.items];
+
+  } else {
+
+    state.filtered =
+      state.items.filter(item => {
+
+        const text = [
+          item.title,
+          item.Title,
+          item.description,
+          item.material_type,
+          item.subject_name
+        ]
+        .join(" ")
+        .toLowerCase();
+
+        return text.includes(query);
+      });
+  }
+
+
+  render();
+}
+
+
+/* -------------------------------------------------------
+   TYPE
+------------------------------------------------------- */
+
+function getType(item) {
+
+  if (
+    item.is_folder === true ||
+    item.material_type === "FOLDER"
+  ) {
+    return "FOLDER";
+  }
+
+
+  if (
+    item.material_type === "VIDEO" ||
+    item.video_id ||
+    item.hls_stream_type
+  ) {
+    return "VIDEO";
+  }
+
+
+  if (
+    item.material_type === "PDF" ||
+    item.pdf_link ||
+    item.pdf_link2
+  ) {
+    return "PDF";
+  }
+
+
+  return safeText(
+    item.material_type,
+    "CONTENT"
+  );
+}
+
+
+/* -------------------------------------------------------
+   THUMBNAIL
+------------------------------------------------------- */
+
+function getThumbnail(item) {
+
+  if (item.thumbnail) {
+    return item.thumbnail;
+  }
+
+
+  return "data:image/svg+xml," +
+    encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="800"
+           height="450">
+        <rect width="100%"
+              height="100%"
+              fill="#15151d"/>
+        <text x="50%"
+              y="50%"
+              fill="#777"
+              text-anchor="middle"
+              dominant-baseline="middle"
+              font-family="Arial"
+              font-size="28">
+          STUDY MODE
+        </text>
+      </svg>
+    `);
+}
+
+
+/* -------------------------------------------------------
+   CARD
+------------------------------------------------------- */
+
+function createCard(item, index) {
+
+  const title =
+    item.title ||
+    item.Title ||
+    item.subject_name ||
+    `Content ${index + 1}`;
+
+
+  const description =
+    item.description ||
+    "Open available course content.";
+
+
+  const type =
+    getType(item);
+
+
+  const thumbnail =
+    getThumbnail(item);
+
+
+  return `
+    <article class="card">
+
+      <div class="thumb">
+
+        <img
+          src="${escapeHTML(thumbnail)}"
+          alt="${escapeHTML(title)}"
+          loading="lazy"
+          onerror="this.style.display='none'">
+
+        <div class="thumb-overlay"></div>
+
+        <span class="type">
+          ${escapeHTML(type)}
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-title">
+          ${escapeHTML(title)}
+        </div>
+
+        <div class="card-desc">
+          ${escapeHTML(description)}
+        </div>
+
+        <button
+          class="open-btn"
+          type="button"
+          onclick="openItem(${index})">
+
+          Open
+
+        </button>
+
+      </div>
+
+    </article>
+  `;
+}
+
+
+/* -------------------------------------------------------
+   RENDER
+------------------------------------------------------- */
+
+function render() {
+
+  const area =
+    $("contentArea");
+
+
+  $("resultCount").textContent =
+    `${state.filtered.length} item${state.filtered.length === 1 ? "" : "s"}`;
+
+
+  if (!state.filtered.length) {
+
+    area.innerHTML = `
+      <div class="message">
+        <strong>No content found</strong>
+        Try a different search term.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  area.innerHTML = `
+    <div class="grid">
+
+      ${state.filtered
+        .map((item, index) =>
+          createCard(item, index))
+        .join("")}
+
+    </div>
+  `;
+}
+
+
+/* -------------------------------------------------------
+   OPEN ITEM
+------------------------------------------------------- */
+
+function openItem(index) {
+
+  const item =
+    state.filtered[index];
+
+
+  if (!item) return;
+
+
+  /*
+    Only open links that are explicitly supplied
+    as public content URLs by the API.
+
+    No authentication or DRM bypass is attempted.
+  */
+
+
+  const possibleLinks = [
+
+    item.embed_url,
+
+    item.study_material_link,
+
+    item.pdf_link,
+
+    item.pdf_link2,
+
+    item.file_link,
+
+    item.download_url_higher_version,
+
+    item.download_url_lower_version
+
+  ];
+
+
+  const url =
+    possibleLinks.find(
+      value =>
+        typeof value === "string" &&
+        /^https?:\/\//i.test(value)
+    );
+
+
+  if (url) {
+
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+    return;
+  }
+
+
+  alert(
+    "This content does not contain a public opening URL."
+  );
+}
+
+
+/* -------------------------------------------------------
+   SEARCH EVENT
+------------------------------------------------------- */
+
+$("searchInput")
+  .addEventListener(
+    "input",
+    event => {
+      filterContent(event.target.value);
+    }
+  );
+
+
+/* -------------------------------------------------------
+   START
+------------------------------------------------------- */
+
+loadCourse();
+
+</script>
+
+</body>
+</html>
